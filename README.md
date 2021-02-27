@@ -1,2 +1,2 @@
-# OptimalMoving
-Optimal moving of aircrafts at airfield
+# OptimalMotion
+Optimal motion of aircrafts at airfield
