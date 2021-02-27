@@ -25,13 +25,14 @@ namespace OptimalMoving
 
     public partial class Form1 : Form
     {
+        private DataGridView dataGridView1 = new DataGridView();
         public Form1()
         {
             InitializeComponent();
 
-
             dataGridView1.Dock = DockStyle.Fill;
 
+            Controls.Add(dataGridView1);
 
             var data = new BindingList<TableString>(); 
             data.Add(new TableString(1, 10));
@@ -42,6 +43,7 @@ namespace OptimalMoving
 
             data.Add(new TableString(4, 20));
             data.Insert(0, new TableString(0, 0));
+
 
         }
 
