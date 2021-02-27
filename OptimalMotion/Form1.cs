@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OptimalMoving.Domain;
 
 namespace OptimalMoving
 {
@@ -44,7 +45,7 @@ namespace OptimalMoving
             data.Add(new TableString(4, 20));
             data.Insert(0, new TableString(0, 0));
 
-
+            
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

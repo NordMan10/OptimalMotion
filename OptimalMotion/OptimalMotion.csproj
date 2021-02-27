@@ -46,6 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Aircraft .cs" />
+    <Compile Include="Domain\IAircraft.cs" />
+    <Compile Include="Domain\AircraftId.cs" />
+    <Compile Include="Domain\IAircraftId.cs" />
+    <Compile Include="Domain\IMoment.cs" />
+    <Compile Include="Domain\IInterval.cs" />
+    <Compile Include="Domain\Interval.cs" />
+    <Compile Include="Domain\IRunway.cs" />
+    <Compile Include="Domain\ISerialAccessZone.cs" />
+    <Compile Include="Domain\ISpecPlatform.cs" />
+    <Compile Include="Domain\ITakingOffAircraft.cs" />
+    <Compile Include="Domain\ISerialAccessZoneExtensions.cs" />
+    <Compile Include="Enums\Intervals.cs" />
+    <Compile Include="Enums\Moments.cs" />
     <Compile Include="Form1.cs" />
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -78,8 +92,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Enums\" />
     <Folder Include="Resources\" />
     <Folder Include="Views\" />
   </ItemGroup>
