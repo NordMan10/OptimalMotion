@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace OptimalMoving.Domain
 {
-    public interface ITableRow
+    public interface ITableRowCreationData
     {
-        int Id { get; }
         IAircraftId AircraftId { get; }
         IMoment EngineStartMoment { get; }
         bool IsPlannedMomentFeasible { get; }

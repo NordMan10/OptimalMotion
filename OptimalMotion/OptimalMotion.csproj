@@ -63,8 +63,11 @@
     <Compile Include="Domain\ISpecPlatform.cs" />
     <Compile Include="Domain\ITable.cs" />
     <Compile Include="Domain\ITableRow.cs" />
+    <Compile Include="Domain\ITableRowCreationData.cs" />
     <Compile Include="Domain\ITakingOffAircraft.cs" />
     <Compile Include="Domain\ISerialAccessZoneExtensions.cs" />
+    <Compile Include="Domain\Table.cs" />
+    <Compile Include="Domain\TableRow.cs" />
     <Compile Include="Enums\Intervals.cs" />
     <Compile Include="Enums\ModelStages.cs" />
     <Compile Include="Enums\Moments.cs" />
