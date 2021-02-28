@@ -19,41 +19,28 @@ namespace OptimalMoving.Domain
 
         public Dictionary<IMoment, IMoment> OccupationIntervals { get; }
 
-        /// <summary>
-        /// Метод выделения интервала в конце списка
-        /// </summary>
-        /// <param name="interval"></param>
-        /// <returns></returns>
-        public Tuple<int, int> GetNewLastInterval(IInterval interval)
-        {
-            // 1) Принимаем интервал обратившегося судна;
-            var currentInterval = interval;
-
-            // Получаем начальный момент (ключ для словаря) последнего обратившегося судна
-            var lastAircraftInterval = OccupationIntervals.Keys.OrderBy(key => key).Last();
-
-            // Получаем момент покидания ВПП последнего обратившегося судна
-            var leaveMoment = 
-
-            // 2) Рассчитываем интервал ожидания на ПРСТ = момент покидания ВПП последним записанным судном 
-            // минус момент прибытия (без задержки) обратившегося судна;
-
-            // 3) Возвращаем сохраненный интервал;
-        }
-
         public int GetPreliminaryStartMinWaitingTime(IMoment startMoment, IMoment endMoment)
         {
             // Создаем интервал занимания обратившегося судна из переданных им данных;
             var currentInterval = new Interval(startMoment, endMoment);
 
-            // 2) Проверяем пересечение полученного интервала с записанными в ВПП интервалами (метод (2) ЗПД):
-            //  2.1) Если пересечений нет => возвращаем ноль;
+            // Проверяем пересечение полученного интервала с записанными в ВПП интервалами (метод (2) ЗПД):
+            // Если пересечений нет => возвращаем ноль;
             if (!this.DoesIntervalIntersect(currentInterval))
                 return 0;
-            // 2.2) Если есть => возвращаем значение метода выделения интервала в конце списка;
-            throw new NotImplementedException();
-            
 
+            // Если есть => получаем начальный момент (ключ для словаря) последнего обратившегося судна
+            var lastAircraftStartMoment = OccupationIntervals.Keys.OrderBy(key => key).Last();
+
+            // Получаем момент покидания ВПП последнего обратившегося судна
+            var leaveMoment = OccupationIntervals[lastAircraftStartMoment];
+
+            // Рассчитываем интервал ожидания на ПРСТ = момент покидания ВПП последним записанным судном 
+            // минус момент прибытия (без задержки) обратившегося судна;
+            var waitingInterval = leaveMoment - currentInterval.StartMoment;
+
+            // Возвращаем полученный интервал;
+            return waitingInterval;
         }
     }
 }

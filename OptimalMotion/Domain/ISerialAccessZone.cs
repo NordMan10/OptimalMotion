@@ -11,6 +11,6 @@ namespace OptimalMoving.Domain
         int Id { get; }
 
         Dictionary<IMoment, IMoment> OccupationIntervals { get; }
-        Tuple<int, int> GetNewLastInterval(IInterval interval);
+        //Tuple<int, int> GetNewLastInterval(IInterval interval);
     }
 }

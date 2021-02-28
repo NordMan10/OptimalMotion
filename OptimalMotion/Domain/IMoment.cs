@@ -7,11 +7,9 @@ using OptimalMoving.Enums;
 
 namespace OptimalMoving.Domain
 {
-    public interface IMoment : IComparable
+    public interface IMoment : IComparable<IMoment>
     {
         Moments Type { get; set; }
 
-        IMoment GetMoment();
-        void SetMoment(int moment);
     }
 }
