@@ -8,6 +8,10 @@ namespace OptimalMoving.Domain
 {
     public interface ITakingOffAircraft : IAircraft
     {
+        bool ProcessingNeed { get; }
 
+        IMoment GetEngineStartMoment();
+        IInterval GetSpecPlatformOccupationInterval();
+        bool IsPlannedMomentFeasible(IPlannedMomentFeasibilityController controller);
     }
 }

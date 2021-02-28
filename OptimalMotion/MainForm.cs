@@ -24,10 +24,10 @@ namespace OptimalMoving
 
     }
 
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private DataGridView dataGridView1 = new DataGridView();
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -45,7 +45,6 @@ namespace OptimalMoving
             data.Add(new TableString(4, 20));
             data.Insert(0, new TableString(0, 0));
 
-            
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

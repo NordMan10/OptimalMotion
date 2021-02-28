@@ -8,7 +8,7 @@ namespace OptimalMoving.Domain
 {
     public interface ISpecPlatform : ISerialAccessZone
     {
-        int Id { get; set; }
+        int Id { get; }
 
         Tuple<int, int> GetProcessingDelayAndSafeMergeDelay();
     }

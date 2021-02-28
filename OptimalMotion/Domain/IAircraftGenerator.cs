@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace OptimalMoving.Domain
 {
-    public interface IRunway : ISerialAccessZone
+    public interface IAircraftGenerator
     {
-        int Id { get; }
-
-        int GetPreliminaryStartMinWaitingTime(IMoment startMoment, IMoment endMoment);
+        ITakingOffAircraft GetTakingOffAircraft();
+        ILandingAircraft GetLandingAircraft();
     }
 }
