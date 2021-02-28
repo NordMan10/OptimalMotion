@@ -66,6 +66,7 @@
     <Compile Include="Domain\ITableRowCreationData.cs" />
     <Compile Include="Domain\ITakingOffAircraft.cs" />
     <Compile Include="Domain\ISerialAccessZoneExtensions.cs" />
+    <Compile Include="Domain\Runway.cs" />
     <Compile Include="Domain\Table.cs" />
     <Compile Include="Domain\TableRow.cs" />
     <Compile Include="Enums\Intervals.cs" />

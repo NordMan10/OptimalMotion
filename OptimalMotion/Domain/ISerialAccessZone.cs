@@ -8,11 +8,9 @@ namespace OptimalMoving.Domain
 {
     public interface ISerialAccessZone
     {
-        Dictionary<IMoment, IMoment> OccupationIntervals { get; }
+        int Id { get; }
 
-        Tuple<Interval, Interval> GetLeftAndRightIntervalsRelative(IInterval interval);
-        bool DoesIntervalIntersect(IInterval interval);
-        void AddInterval(IInterval interval);
-        void RemoveInterval(IInterval interval);
+        Dictionary<IMoment, IMoment> OccupationIntervals { get; }
+        Tuple<int, int> GetNewLastInterval(IInterval interval);
     }
 }
