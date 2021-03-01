@@ -65,6 +65,7 @@
     <Compile Include="Domain\ITableRowCreationData.cs" />
     <Compile Include="Domain\ITakingOffAircraft.cs" />
     <Compile Include="Domain\ISerialAccessZoneExtensions.cs" />
+    <Compile Include="Domain\LandingAircraft.cs" />
     <Compile Include="Domain\Moment.cs" />
     <Compile Include="Domain\Runway.cs" />
     <Compile Include="Domain\SpecPlatform.cs" />
