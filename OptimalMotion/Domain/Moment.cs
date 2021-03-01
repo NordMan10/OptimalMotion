@@ -34,9 +34,20 @@ namespace OptimalMoving.Domain
 
         public Moments Type { get; set; }
 
-        public static int operator -(IMoment moment1, IMoment moment2)
-        {
-            return moment1.Value - moment2.Value;
-        }
+        //public static int operator -(Moment moment1, Moment moment2)
+        //{
+        //    return moment1.Value - moment2.Value;
+        //}
+
+        //public static bool operator >(Moment moment1, Moment moment2)
+        //{
+        //    var compareResult = moment1.CompareTo(moment2);
+        //    return compareResult > 0;
+        //}
+
+        //public static bool operator <(Moment moment1, Moment moment2)
+        //{
+        //    return moment2 > moment1;
+        //}
     }
 }

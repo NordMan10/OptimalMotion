@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Aircraft .cs" />
     <Compile Include="Domain\IAircraft.cs" />
     <Compile Include="Domain\AircraftId.cs" />
     <Compile Include="Domain\IAircraftGenerator.cs" />
@@ -68,6 +67,7 @@
     <Compile Include="Domain\ISerialAccessZoneExtensions.cs" />
     <Compile Include="Domain\Moment.cs" />
     <Compile Include="Domain\Runway.cs" />
+    <Compile Include="Domain\SpecPlatform.cs" />
     <Compile Include="Domain\Table.cs" />
     <Compile Include="Domain\TableRow.cs" />
     <Compile Include="Enums\Intervals.cs" />

@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OptimalMoving.Domain
 {
     public static class ISerialAccessZoneExtensions
     {
-
         /// <summary>
         /// Находим ближайшие моменты прибытия слева и справа относительно момента прибытия обратившегося судна
         /// </summary>
+        /// <param name="zone"></param>
         /// <param name="interval"></param>
-        /// <returns></returns>
-        public static Tuple<Interval, Interval> GetLeftAndRightIntervalsRelative(this ISerialAccessZone zone, IInterval interval)
+        /// <returns>Если интервалы найдены — возвращает эти интервалы. Если нет, возвращает Tuple с двумя null</returns>
+        public static Tuple<IInterval, IInterval> GetLeftAndRightIntervalsRelative(this ISerialAccessZone zone, IInterval interval)
         {
             // Получаем интервал обратившегося судна;
             var currentInterval = interval;
@@ -30,35 +27,62 @@ namespace OptimalMoving.Domain
             // Получаем индекс начального момента текущего интервала;
             var currentIntervalIndex = orderedKeysList.IndexOf(currentInterval.StartMoment);
 
-            // Через соседние индексы получаем начальные моменты(по сути ключи словаря) левого и правого интервала;
-            var leftIntervalStartMoment = orderedKeysList[currentIntervalIndex - 1];
-            var rightIntervalStartMoment = orderedKeysList[currentIntervalIndex + 1];
+            // Через соседние индексы получаем начальные моменты(по сути ключи словаря) левого и правого интервала если они есть:
+            IInterval leftInterval = null;
+            IInterval rightInterval = null;
 
-            // Находим интервалы;
-            var leftInterval = new Interval(leftIntervalStartMoment, zone.OccupationIntervals[leftIntervalStartMoment]);
-            var rightInterval = new Interval(rightIntervalStartMoment, zone.OccupationIntervals[rightIntervalStartMoment]);
+            // Если есть левый
+            if (currentIntervalIndex > 0)
+            {
+                // Находим интервал;
+                var leftIntervalStartMoment = orderedKeysList[currentIntervalIndex - 1];
+                leftInterval = new Interval(leftIntervalStartMoment, zone.OccupationIntervals[leftIntervalStartMoment]);
+            }
+
+            // Если есть правый
+            if (currentIntervalIndex + 1 < orderedKeysList.Count)
+            {
+                // Находим интервал;
+                var rightIntervalStartMoment = orderedKeysList[currentIntervalIndex + 1];
+                rightInterval = new Interval(rightIntervalStartMoment, zone.OccupationIntervals[rightIntervalStartMoment]);
+            }
 
             // Возвращаем эти моменты;
             return Tuple.Create(leftInterval, rightInterval);
         }
 
-        public static bool DoesIntervalIntersect(this ISerialAccessZone zone, IInterval interval)
+        /// <summary>
+        /// Определяет пересекаются ли два интервала
+        /// </summary>
+        /// <param name="zone"></param>
+        /// <param name="interval1Param"></param>
+        /// <param name="interval2Param"></param>
+        /// <returns></returns>
+        public static bool DoesIntervalsIntersect(this ISerialAccessZone zone, IInterval interval1Param, IInterval interval2Param)
         {
-            // Принимаем интервал обратившегося судна;
-            var currentInterval = interval;
+            // Принимаем интервалы;
+            var interval1 = interval1Param;
+            var interval2 = interval2Param;
 
-            // Получаем левый и правый интервалы;
-            var leftAndRightIntervals = zone.GetLeftAndRightIntervalsRelative(currentInterval);
+            // Определяем какой из них левый, а какой правый:
+            // Если начальный момент одного меньше начального момента другого => первый является левым
+            IInterval leftInterval;
+            IInterval rightInterval;
 
-            // Если начальный момент текущего интервала меньше конечного момента левого интервала => пересечение;
-            if (currentInterval.StartMoment < leftAndRightIntervals.Item1.EndMoment)
-                return true;
-            // Если конечный момент текущего интервала больше начального момента правого интервала => пересечение;
-            if (currentInterval.EndMoment > leftAndRightIntervals.Item2.StartMoment)
-                return true;
+            if (interval1.StartMoment.Value < interval2.StartMoment.Value)
+            {
+                leftInterval = interval1;
+                rightInterval = interval2;
+            }
+            else
+            {
+                leftInterval = interval2;
+                rightInterval = interval1;
+            }
 
-            // Если ни то и ни другое => нет пересечения;
-            return false;
+            // Если начальный момент правого интервала меньше конечного момента левого интервала => пересечение;
+            // Если нет => нет пересечения;
+            return rightInterval.StartMoment.Value < leftInterval.EndMoment.Value;
         }
 
         public static void AddInterval(this ISerialAccessZone zone, IInterval interval)

@@ -9,7 +9,7 @@ namespace OptimalMoving.Domain
 {
     public interface IMoment : IComparable<IMoment>
     {
+        int Value { get; }
         Moments Type { get; set; }
-
     }
 }

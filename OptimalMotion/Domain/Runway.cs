@@ -19,7 +19,7 @@ namespace OptimalMoving.Domain
 
         public Dictionary<IMoment, IMoment> OccupationIntervals { get; }
 
-        public int GetPreliminaryStartMinWaitingTime(IMoment startMoment, IMoment endMoment)
+        public int GetPreliminaryStartMinDelayTime(IMoment startMoment, IMoment endMoment)
         {
             // Создаем интервал занимания обратившегося судна из переданных им данных;
             var currentInterval = new Interval(startMoment, endMoment);
@@ -37,7 +37,7 @@ namespace OptimalMoving.Domain
 
             // Рассчитываем интервал ожидания на ПРСТ = момент покидания ВПП последним записанным судном 
             // минус момент прибытия (без задержки) обратившегося судна;
-            var waitingInterval = leaveMoment - currentInterval.StartMoment;
+            var waitingInterval = leaveMoment.Value - currentInterval.StartMoment.Value;
 
             // Возвращаем полученный интервал;
             return waitingInterval;

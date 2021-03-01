@@ -10,6 +10,6 @@ namespace OptimalMoving.Domain
     {
         int Id { get; }
 
-        Tuple<int, int> GetProcessingDelayAndSafeMergeDelay();
+        Tuple<int, int> GetProcessingAndSafeMergeDelay(IInterval aircraftInterval, int safeMergeValueParam);
     }
 }

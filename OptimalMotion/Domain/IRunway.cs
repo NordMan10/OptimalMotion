@@ -8,6 +8,6 @@ namespace OptimalMoving.Domain
 {
     public interface IRunway : ISerialAccessZone
     {
-        int GetPreliminaryStartMinWaitingTime(IMoment startMoment, IMoment endMoment);
+        int GetPreliminaryStartMinDelayTime(IMoment startMoment, IMoment endMoment);
     }
 }
