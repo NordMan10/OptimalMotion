@@ -19,6 +19,12 @@ namespace OptimalMoving.Domain
 
         public Dictionary<IMoment, IMoment> OccupationIntervals { get; }
 
+        /// <summary>
+        /// Возвращает минимальное время ожидания на ПРСТ
+        /// </summary>
+        /// <param name="startMoment">Момент выхода на ИСПСТ</param>
+        /// <param name="endMoment">Момент покидания ВПП (взлета)</param>
+        /// <returns></returns>
         public int GetPreliminaryStartMinDelayTime(IMoment startMoment, IMoment endMoment)
         {
             // Создаем интервал занимания обратившегося судна из переданных им данных;
@@ -26,7 +32,7 @@ namespace OptimalMoving.Domain
 
             // Проверяем пересечение полученного интервала с записанными в ВПП интервалами (метод (2) ЗПД):
             // Если пересечений нет => возвращаем ноль;
-            if (!this.DoesIntervalIntersect(currentInterval))
+            if (!this.DoesIntervalsIntersect(currentInterval))
                 return 0;
 
             // Если есть => получаем начальный момент (ключ для словаря) последнего обратившегося судна

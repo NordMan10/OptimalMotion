@@ -7,13 +7,8 @@ using OptimalMoving.Enums;
 
 namespace OptimalMoving.Domain
 {
-    public interface IAircraft
+    public interface ITakingOffAircraftCreationIntervals
     {
-        IAircraftId Id { get; set; }
-
-        Dictionary<Moments, IMoment> Moments { get; }
         Dictionary<Intervals, int> Intervals { get; }
-
-        IInterval GetRunwayOccupationInterval();
     }
 }

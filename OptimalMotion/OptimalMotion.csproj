@@ -65,11 +65,16 @@
     <Compile Include="Domain\ITableRowCreationData.cs" />
     <Compile Include="Domain\ITakingOffAircraft.cs" />
     <Compile Include="Domain\ISerialAccessZoneExtensions.cs" />
+    <Compile Include="Domain\ITakingOffAircraftCreationIntervals.cs" />
+    <Compile Include="Domain\ITakingOffAircraftCreationMoments.cs" />
     <Compile Include="Domain\Moment.cs" />
     <Compile Include="Domain\Runway.cs" />
     <Compile Include="Domain\SpecPlatform.cs" />
     <Compile Include="Domain\Table.cs" />
     <Compile Include="Domain\TableRow.cs" />
+    <Compile Include="Domain\TakingOffAircraft.cs" />
+    <Compile Include="Domain\TakingOffAircraftCreationIntervals.cs" />
+    <Compile Include="Domain\TakingOffAircraftCreationMoments.cs" />
     <Compile Include="Enums\Intervals.cs" />
     <Compile Include="Enums\ModelStages.cs" />
     <Compile Include="Enums\Moments.cs" />
