@@ -18,7 +18,7 @@ namespace OptimalMoving.Domain
             Intervals.Add(Enums.Intervals.ParkingSpecPlatformMotion, parkingSpecPlatformMotion);
             Intervals.Add(Enums.Intervals.AircraftProcessingWaiting, 0);
             Intervals.Add(Enums.Intervals.SafeMergeWaiting, 0);
-            Intervals.Add(Enums.Intervals.AircraftProcessing, aircraftProcessing);
+            Intervals.Add(Enums.Intervals.Processing, aircraftProcessing);
             Intervals.Add(Enums.Intervals.SpecPlatformPreliminaryStartMotion, specPlatformPreliminaryStartMotion);
             Intervals.Add(Enums.Intervals.PreliminaryStartWaiting, 0);
             Intervals.Add(Enums.Intervals.ExecutiveStartMotion, executiveStartMotion);

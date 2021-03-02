@@ -8,10 +8,10 @@ namespace OptimalMoving.Domain
 {
     public interface IPlannedMomentFeasibilityController
     {
-        bool IsFeasibleWithoutProcessing(IMoment appearanceMoment, IInterval parkingPreliminaryStartMotion, 
-            IInterval preliminaryStartMaxWaiting, IMoment plannedMoment);
-        bool IsFeasibleWithProcessing(IMoment appearanceMoment, IInterval parkingSpecPlatformMotion,
-            IInterval processingMaxWaiting, IInterval processing, IInterval specPlatformPreliminaryStartMotion,
-            IInterval preliminaryStartMaxWaiting, IMoment plannedMoment);
+        bool IsFeasibleWithoutProcessing(IMoment appearanceMoment, int parkingPreliminaryStartMotion, 
+            int preliminaryStartMaxWaiting, IMoment plannedMoment);
+        bool IsFeasibleWithProcessing(IMoment appearanceMoment, int parkingSpecPlatformMotion,
+            int processingMaxWaiting, int processing, int specPlatformPreliminaryStartMotion,
+            int preliminaryStartMaxWaiting, IMoment plannedMoment);
     }
 }

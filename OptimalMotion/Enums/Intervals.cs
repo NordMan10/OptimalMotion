@@ -13,7 +13,7 @@ namespace OptimalMoving.Enums
         ParkingSpecPlatformMotion,
         AircraftProcessingWaiting,
         SafeMergeWaiting,
-        AircraftProcessing,
+        Processing,
         SpecPlatformPreliminaryStartMotion,
         PreliminaryStartWaiting,
         ExecutiveStartMotion,
