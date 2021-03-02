@@ -3,21 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OptimalMoving.Enums;
 
 namespace OptimalMoving.Domain
 {
     public class PlannedMomentFeasibilityController : IPlannedMomentFeasibilityController
     {
-        public bool IsFeasibleWithoutProcessing(IMoment appearanceMoment, int parkingPreliminaryStartMotion,
-            int preliminaryStartMaxWaiting, IMoment plannedMoment)
+        protected PlannedMomentFeasibilityController() {}
+
+        private static PlannedMomentFeasibilityController instance;
+        private static object syncRoot = new object();
+
+        IPlannedMomentFeasibilityController IPlannedMomentFeasibilityController.GetInstance()
         {
-            throw new NotImplementedException();
+            return GetInstance();
         }
 
-        public bool IsFeasibleWithProcessing(IMoment appearanceMoment, int parkingSpecPlatformMotion, int processingMaxWaiting,
-            int processing, int specPlatformPreliminaryStartMotion, int preliminaryStartMaxWaiting, IMoment plannedMoment)
+        public static IPlannedMomentFeasibilityController GetInstance()
         {
-            throw new NotImplementedException();
+            if (instance == null)
+            {
+                lock (syncRoot)
+                {
+                    if (instance == null)
+                        instance = new PlannedMomentFeasibilityController();
+                }
+            }
+            return instance;
+        }
+
+        public bool IsFeasibleWithoutProcessing(ITakingOffAircraftCreationData creationData)
+        {
+            return creationData.CreationMoments.Moments[Moments.Appearance].Value +
+                creationData.CreationIntervals.Intervals[Intervals.ParkingPreliminaryStartMotion] +
+                creationData.MaxPreliminaryStartWaitingTime <= creationData.CreationMoments
+                    .Moments[Moments.PlannedPreliminaryStartArrival].Value;
+        }
+
+        public bool IsFeasibleWithProcessing(ITakingOffAircraftCreationData creationData)
+        {
+            return creationData.CreationMoments.Moments[Moments.Appearance].Value +
+                   creationData.CreationIntervals.Intervals[Intervals.ParkingSpecPlatformMotion] +
+                   creationData.MaxProcessingWaitingTime +
+                   creationData.CreationIntervals.Intervals[Intervals.Processing] +
+                   creationData.CreationIntervals.Intervals[Intervals.SpecPlatformPreliminaryStartMotion] +
+                   creationData.MaxPreliminaryStartWaitingTime + creationData.MaxPreliminaryStartWaitingTime <=
+                   creationData.CreationMoments
+                       .Moments[Moments.PlannedPreliminaryStartArrival].Value;
         }
     }
 }

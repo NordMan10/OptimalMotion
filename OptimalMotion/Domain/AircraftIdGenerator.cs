@@ -17,16 +17,6 @@ namespace OptimalMoving.Domain
         private static object syncRoot = new object();
         private int id;
 
-        public IAircraftId GetUniqueAircraftId()
-        {
-            return new AircraftId(id++);
-        }
-
-        IAircraftIdGenerator IAircraftIdGenerator.GetInstance(int initIdValue)
-        {
-            return GetInstance(initIdValue);
-        }
-
         public static IAircraftIdGenerator GetInstance(int initIdValue)
         {
             if (instance == null)
@@ -38,6 +28,16 @@ namespace OptimalMoving.Domain
                 }
             }
             return instance;
+        }
+
+        public IAircraftId GetUniqueAircraftId()
+        {
+            return new AircraftId(id++);
+        }
+
+        IAircraftIdGenerator IAircraftIdGenerator.GetInstance(int initIdValue)
+        {
+            return GetInstance(initIdValue);
         }
     }
 }
