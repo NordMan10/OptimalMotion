@@ -46,11 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\AircraftGenerator.cs" />
+    <Compile Include="Domain\AircraftIdGenerator.cs" />
     <Compile Include="Domain\IAircraft.cs" />
     <Compile Include="Domain\AircraftId.cs" />
     <Compile Include="Domain\IAircraftGenerator.cs" />
     <Compile Include="Domain\IAircraftId.cs" />
+    <Compile Include="Domain\IAircraftIdGenerator.cs" />
     <Compile Include="Domain\ILandingAircraft.cs" />
+    <Compile Include="Domain\ILandingAircraftCreationData.cs" />
     <Compile Include="Domain\IModel.cs" />
     <Compile Include="Domain\IModelStage.cs" />
     <Compile Include="Domain\IMoment.cs" />
@@ -77,6 +81,8 @@
     <Compile Include="Domain\TableRow.cs" />
     <Compile Include="Domain\TakingOffAircraft.cs" />
     <Compile Include="Domain\LandingAircraftCreationIntervals.cs" />
+    <Compile Include="Domain\ITakingOffAircraftCreationData.cs" />
+    <Compile Include="Domain\TakingOffAircraftCreationData.cs" />
     <Compile Include="Domain\TakingOffAircraftCreationIntervals.cs" />
     <Compile Include="Domain\LandingAircraftCreationMoments.cs" />
     <Compile Include="Domain\TakingOffAircraftCreationMoments.cs" />

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OptimalMoving.Domain
 {
-    public interface IAircraftGenerator
+    public interface IAircraftIdGenerator
     {
-        ITakingOffAircraft GeTakingOffAircraft();
-        ILandingAircraft GetLandingAircraft();
+        IAircraftId GetUniqueAircraftId();
+        IAircraftIdGenerator GetInstance(int initIdValue);
     }
 }
