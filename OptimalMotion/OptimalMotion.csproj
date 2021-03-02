@@ -67,6 +67,7 @@
     <Compile Include="Domain\ISerialAccessZoneExtensions.cs" />
     <Compile Include="Domain\ITakingOffAircraftCreationIntervals.cs" />
     <Compile Include="Domain\ITakingOffAircraftCreationMoments.cs" />
+    <Compile Include="Domain\LandingAircraft.cs" />
     <Compile Include="Domain\Moment.cs" />
     <Compile Include="Domain\Runway.cs" />
     <Compile Include="Domain\SpecPlatform.cs" />
