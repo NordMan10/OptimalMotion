@@ -17,6 +17,7 @@ namespace OptimalMoving.Enums
         SpecPlatformPreliminaryStartMotion,
         PreliminaryStartWaiting,
         ExecutiveStartMotion,
-        TakeOff
+        TakeOff,
+        Landing
     }
 }

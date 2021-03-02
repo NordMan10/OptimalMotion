@@ -13,6 +13,7 @@ namespace OptimalMoving.Enums
         Departure,
         PreliminaryStartArrival,
         ExecutiveStartArrival,
-        TakeOff
+        TakeOff,
+        Landing
     }
 }
