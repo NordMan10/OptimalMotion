@@ -11,5 +11,6 @@ namespace OptimalMoving.Domain
         void AddRow(ITableRowCreationData row);
         void RemoveRow(int id);
         void UpdateRow(int id, ITableRow newRow);
+        void Reset();
     }
 }

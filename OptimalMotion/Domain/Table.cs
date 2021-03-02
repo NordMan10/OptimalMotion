@@ -58,6 +58,11 @@ namespace OptimalMoving.Domain
             data.Insert(rowIndex, updatedRow);
         }
 
+        public void Reset()
+        {
+            data.Clear();
+        }
+
         private ITableRow GetTableRow(ITableRowCreationData data)
         {
             // Получаем все данные, кроме Id строки;

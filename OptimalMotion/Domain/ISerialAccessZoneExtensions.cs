@@ -98,5 +98,10 @@ namespace OptimalMoving.Domain
             // Удаляем интервал по ключу(начальному моменту переданного интервала);
             zone.OccupationIntervals.Remove(interval.StartMoment);
         }
+
+        public static void ResetOccupationIntervals(this ISerialAccessZone zone)
+        {
+            zone.OccupationIntervals.Clear();
+        }
     }
 }

@@ -4,6 +4,6 @@ namespace OptimalMoving.Domain
 {
     public interface IModel
     {
-        void ChangeModelStage(ModelStages stage);
+        void ChangeStage(ModelStages stage);
     }
 }

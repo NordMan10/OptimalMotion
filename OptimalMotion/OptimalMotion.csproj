@@ -56,7 +56,6 @@
     <Compile Include="Domain\ILandingAircraft.cs" />
     <Compile Include="Domain\ILandingAircraftCreationData.cs" />
     <Compile Include="Domain\IModel.cs" />
-    <Compile Include="Domain\IModelStage.cs" />
     <Compile Include="Domain\IMoment.cs" />
     <Compile Include="Domain\IInterval.cs" />
     <Compile Include="Domain\Interval.cs" />
@@ -75,6 +74,7 @@
     <Compile Include="Domain\ITakingOffAircraftCreationMoments.cs" />
     <Compile Include="Domain\LandingAircraft.cs" />
     <Compile Include="Domain\LandingAircraftCreationData.cs" />
+    <Compile Include="Domain\Model.cs" />
     <Compile Include="Domain\Moment.cs" />
     <Compile Include="Domain\PlannedMomentFeasibilityController.cs" />
     <Compile Include="Domain\Runway.cs" />
