@@ -11,33 +11,29 @@ namespace OptimalMoving.Domain
         public AircraftGenerator(IAircraftIdGenerator idGenerator)
         {
             this.idGenerator = idGenerator;
-            this.creationTime = creationTime;
-            this.runway = runway;
-            this.specPlatform = specPlatform;
         }
 
-        private IAircraftIdGenerator idGenerator;
-        private int creationTime;
-        private IRunway runway;
-        private ISpecPlatform specPlatform;
-        private Random random = new Random();
-        private int maxProcessingWaitingTime = 180;
-        private int maxPreliminaryStartWaitingTime = 240;
-        private int safeMergeValue = 120;
+        private readonly IAircraftIdGenerator idGenerator;
+        private readonly Random random = new Random();
+        private const int maxProcessingWaitingTime = 180;
+        private const int maxPreliminaryStartWaitingTime = 240;
+        private const int safeMergeValue = 120;
 
 
         public ITakingOffAircraft GetTakingOffAircraft(int creationTime, IRunway runway, ISpecPlatform specPlatform)
         {
-            throw new NotImplementedException();
+            var creationData = GetTakingOffAircraftCreationData(creationTime, runway, specPlatform);
+            return new TakingOffAircraft(creationData);
         }
 
-        public ILandingAircraft GetLandingAircraft()
+        public ILandingAircraft GetLandingAircraft(int creationTime, int runwayIndex = 0)
         {
-            throw new NotImplementedException();
+            var creationData = GetLandingAircraftCreationData(creationTime, runwayIndex);
+            return new LandingAircraft(creationData);
         }
 
-        // Этот метод дб в {Модели}
-        private ITakingOffAircraftCreationData GetTakingOffAircraftCreationMoments()
+        
+        private ITakingOffAircraftCreationData GetTakingOffAircraftCreationData(int creationTime, IRunway runway, ISpecPlatform specPlatform)
         {
             var id = idGenerator.GetUniqueAircraftId();
 
@@ -72,5 +68,16 @@ namespace OptimalMoving.Domain
                 takeOff[random.Next(0, takeOff.Count)]);
         }
 
+        private ILandingAircraftCreationData GetLandingAircraftCreationData(int creationTime, int runwayIndex)
+        {
+            var id = idGenerator.GetUniqueAircraftId();
+
+            var creationMoments = new LandingAircraftCreationMoments(creationTime);
+
+            var landingTime = new List<int> { 60, 75, 30 };
+            var creationIntervals = new LandingAircraftCreationIntervals(landingTime[random.Next(landingTime.Count)]);
+
+            return new LandingAircraftCreationData(id, creationMoments, creationIntervals, runwayIndex);
+        }
     }
 }

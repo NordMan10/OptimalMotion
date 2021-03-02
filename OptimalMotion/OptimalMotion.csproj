@@ -74,7 +74,9 @@
     <Compile Include="Domain\ILandingAircraftCreationMoments.cs" />
     <Compile Include="Domain\ITakingOffAircraftCreationMoments.cs" />
     <Compile Include="Domain\LandingAircraft.cs" />
+    <Compile Include="Domain\LandingAircraftCreationData.cs" />
     <Compile Include="Domain\Moment.cs" />
+    <Compile Include="Domain\PlannedMomentFeasibilityController.cs" />
     <Compile Include="Domain\Runway.cs" />
     <Compile Include="Domain\SpecPlatform.cs" />
     <Compile Include="Domain\Table.cs" />

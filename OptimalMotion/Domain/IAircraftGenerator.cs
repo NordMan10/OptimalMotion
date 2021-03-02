@@ -8,7 +8,7 @@ namespace OptimalMoving.Domain
 {
     public interface IAircraftGenerator
     {
-        ITakingOffAircraft GeTakingOffAircraft();
-        ILandingAircraft GetLandingAircraft();
+        ITakingOffAircraft GetTakingOffAircraft(int creationTime, IRunway runway, ISpecPlatform specPlatform);
+        ILandingAircraft GetLandingAircraft(int creationTime, int runwayIndex = 0);
     }
 }

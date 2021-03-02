@@ -7,7 +7,7 @@ using OptimalMoving.Enums;
 
 namespace OptimalMoving.Domain
 {
-    public class LandingAircraftCreationMoments : ITakingOffAircraftCreationMoments
+    public class LandingAircraftCreationMoments : ILandingAircraftCreationMoments
     {
         public LandingAircraftCreationMoments(int landing)
         {

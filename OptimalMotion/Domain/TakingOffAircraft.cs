@@ -1,35 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OptimalMoving.Enums;
 
 namespace OptimalMoving.Domain
 {
     public class TakingOffAircraft : ITakingOffAircraft
     {
-        public TakingOffAircraft(IAircraftId id, ITakingOffAircraftCreationMoments creationMoments, 
-            ITakingOffAircraftCreationIntervals creationIntervals, IRunway runway, 
-            ISpecPlatform specPlatform, int maxProcessingWaitingTime,
-            int maxPreliminaryStartWaitingTime, int safeMergeValue, bool processingIsNeeded)
+        public TakingOffAircraft(ITakingOffAircraftCreationData creationData)
         {
-            Id = id;
-            Moments = creationMoments.Moments;
-            Intervals = creationIntervals.Intervals;
-            this.runway = runway;
-            this.specPlatform = specPlatform;
-            this.maxProcessingWaitingTime = maxProcessingWaitingTime;
-            this.maxPreliminaryStartWaitingTime = maxPreliminaryStartWaitingTime;
-            this.safeMergeValue = safeMergeValue;
-            ProcessingIsNeeded = processingIsNeeded;
+            Id = creationData.Id;
+            Moments = creationData.CreationMoments.Moments;
+            Intervals = creationData.CreationIntervals.Intervals;
+            runway = creationData.Runway;
+            specPlatform = creationData.SpecPlatform;
+            maxProcessingWaitingTime = creationData.MaxProcessingWaitingTime;
+            maxPreliminaryStartWaitingTime = creationData.MaxPreliminaryStartWaitingTime;
+            safeMergeValue = creationData.SafeMergeValue;
+            ProcessingIsNeeded = creationData.ProcessingIsNeeded;
         }
 
-        private IRunway runway;
-        private ISpecPlatform specPlatform;
-        private int maxProcessingWaitingTime;
-        private int maxPreliminaryStartWaitingTime;
-        private int safeMergeValue;
+        private readonly IRunway runway;
+        private readonly ISpecPlatform specPlatform;
+        private readonly int maxProcessingWaitingTime;
+        private readonly int maxPreliminaryStartWaitingTime;
+        private readonly int safeMergeValue;
 
 
         public IAircraftId Id { get; set; }
