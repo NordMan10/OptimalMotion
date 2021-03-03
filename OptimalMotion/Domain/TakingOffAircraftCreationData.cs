@@ -10,10 +10,14 @@ namespace OptimalMoving.Domain
     {
         public TakingOffAircraftCreationData(IAircraftId id, ITakingOffAircraftCreationMoments creationMoments,
             ITakingOffAircraftCreationIntervals creationIntervals, IRunway runway,
-            ISpecPlatform specPlatform, int maxProcessingWaitingTime,
-            int maxPreliminaryStartWaitingTime, int safeMergeValue, bool processingIsNeeded)
+            ISpecPlatform specPlatform, bool processingIsNeeded)
         {
-            
+            Id = id;
+            CreationMoments = creationMoments;
+            CreationIntervals = creationIntervals;
+            Runway = runway;
+            SpecPlatform = specPlatform;
+            ProcessingIsNeeded = processingIsNeeded;
         }
 
         public IAircraftId Id { get; }
@@ -21,9 +25,6 @@ namespace OptimalMoving.Domain
         public ITakingOffAircraftCreationIntervals CreationIntervals { get; }
         public IRunway Runway { get; }
         public ISpecPlatform SpecPlatform { get; }
-        public int MaxProcessingWaitingTime { get; }
-        public int MaxPreliminaryStartWaitingTime { get; }
-        public int SafeMergeValue { get; }
         public bool ProcessingIsNeeded { get; }
     }
 }

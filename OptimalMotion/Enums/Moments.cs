@@ -9,6 +9,8 @@ namespace OptimalMoving.Enums
     public enum Moments
     {
         Appearance,
+        SpecPlatformLeave,
+        EngineStart,
         PlannedPreliminaryStartArrival,
         Departure,
         PreliminaryStartArrival,

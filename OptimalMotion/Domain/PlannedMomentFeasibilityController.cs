@@ -32,24 +32,23 @@ namespace OptimalMoving.Domain
             return instance;
         }
 
-        public bool IsFeasibleWithoutProcessing(ITakingOffAircraftCreationData creationData)
+        public bool IsFeasibleWithoutProcessing(ITakingOffAircraft aircraft)
         {
-            return creationData.CreationMoments.Moments[Moments.Appearance].Value +
-                creationData.CreationIntervals.Intervals[Intervals.ParkingPreliminaryStartMotion] +
-                creationData.MaxPreliminaryStartWaitingTime <= creationData.CreationMoments
-                    .Moments[Moments.PlannedPreliminaryStartArrival].Value;
+            return aircraft.Moments[Moments.Appearance].Value +
+                aircraft.Intervals[Intervals.ParkingPreliminaryStartMotion] +
+                aircraft.Intervals[Intervals.MaxPreliminaryStartWaiting] <= 
+                aircraft.Moments[Moments.PlannedPreliminaryStartArrival].Value;
         }
 
-        public bool IsFeasibleWithProcessing(ITakingOffAircraftCreationData creationData)
+        public bool IsFeasibleWithProcessing(ITakingOffAircraft aircraft)
         {
-            return creationData.CreationMoments.Moments[Moments.Appearance].Value +
-                   creationData.CreationIntervals.Intervals[Intervals.ParkingSpecPlatformMotion] +
-                   creationData.MaxProcessingWaitingTime +
-                   creationData.CreationIntervals.Intervals[Intervals.Processing] +
-                   creationData.CreationIntervals.Intervals[Intervals.SpecPlatformPreliminaryStartMotion] +
-                   creationData.MaxPreliminaryStartWaitingTime + creationData.MaxPreliminaryStartWaitingTime <=
-                   creationData.CreationMoments
-                       .Moments[Moments.PlannedPreliminaryStartArrival].Value;
+            return aircraft.Moments[Moments.Appearance].Value +
+                   aircraft.Intervals[Intervals.ParkingSpecPlatformMotion] +
+                   aircraft.Intervals[Intervals.MaxProcessingWaiting] +
+                   aircraft.Intervals[Intervals.Processing] +
+                   aircraft.Intervals[Intervals.SpecPlatformPreliminaryStartMotion] +
+                   aircraft.Intervals[Intervals.MaxPreliminaryStartWaiting] <= 
+                   aircraft.Moments[Moments.PlannedPreliminaryStartArrival].Value;
         }
     }
 }

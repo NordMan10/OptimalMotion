@@ -14,6 +14,7 @@ namespace OptimalMoving.Domain
         Dictionary<Moments, IMoment> Moments { get; }
         Dictionary<Intervals, int> Intervals { get; }
 
+        int GetRunwayId();
         IInterval GetRunwayOccupationInterval();
     }
 }

@@ -8,8 +8,16 @@ namespace OptimalMoving.Domain
 {
     public interface ITableRowCreationData
     {
-        IAircraftId AircraftId { get; }
-        IMoment EngineStartMoment { get; }
+        int AircraftId { get; }
+        string AppearanceMoment { get; }
+        string SpecPlatformLeaveMoment { get; }
+        string PreliminaryStartArrivalMoment { get; }
+        string PlannedMoment { get; }
+        string EngineStartMoment { get; }
+        string MinProcessingWaiting { get; }
+        string SafeMergeWaiting { get; }
+        string MinPSWaiting { get; }
+        bool NeedProcessing { get; }
         bool IsPlannedMomentFeasible { get; }
     }
 }

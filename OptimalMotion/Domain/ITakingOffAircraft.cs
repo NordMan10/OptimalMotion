@@ -10,8 +10,8 @@ namespace OptimalMoving.Domain
     {
         bool ProcessingIsNeeded { get; }
 
+        int GetSpecPlatformId();
         IMoment GetEngineStartMoment();
         IInterval GetSpecPlatformOccupationInterval();
-        bool IsPlannedMomentFeasible(IPlannedMomentFeasibilityController controller);
     }
 }

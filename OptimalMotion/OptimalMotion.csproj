@@ -81,6 +81,7 @@
     <Compile Include="Domain\SpecPlatform.cs" />
     <Compile Include="Domain\Table.cs" />
     <Compile Include="Domain\TableRow.cs" />
+    <Compile Include="Domain\TableRowCreationData.cs" />
     <Compile Include="Domain\TakingOffAircraft.cs" />
     <Compile Include="Domain\LandingAircraftCreationIntervals.cs" />
     <Compile Include="Domain\ITakingOffAircraftCreationData.cs" />
@@ -91,7 +92,9 @@
     <Compile Include="Enums\Intervals.cs" />
     <Compile Include="Enums\ModelStages.cs" />
     <Compile Include="Enums\Moments.cs" />
-    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>

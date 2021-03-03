@@ -30,10 +30,16 @@ namespace OptimalMoving.Domain
             // Создаем интервал занимания обратившегося судна из переданных им данных;
             var currentInterval = new Interval(startMoment, endMoment);
 
+            // Получаем левый и правый интервалы (метод ЗПД) относительно принятого интервала;
+            var leftAndRightIntervals = this.GetLeftAndRightIntervalsRelative(currentInterval);
+            var leftInterval = leftAndRightIntervals.Item1;
+            var rightInterval = leftAndRightIntervals.Item2;
+
             // Проверяем пересечение полученного интервала с записанными в ВПП интервалами (метод (2) ЗПД):
             // Если пересечений нет => возвращаем ноль;
-            if (!this.DoesIntervalsIntersect(currentInterval))
-                return 0;
+            if (leftInterval == null || !this.DoesIntervalsIntersect(currentInterval, leftInterval))
+                if (rightInterval == null || !this.DoesIntervalsIntersect(currentInterval, rightInterval))
+                    return 0;
 
             // Если есть => получаем начальный момент (ключ для словаря) последнего обратившегося судна
             var lastAircraftStartMoment = OccupationIntervals.Keys.OrderBy(key => key).Last();

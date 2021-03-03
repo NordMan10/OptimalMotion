@@ -8,13 +8,13 @@ namespace OptimalMoving.Domain
             ILandingAircraftCreationIntervals creationIntervals, int runwayIndex)
         {
             Id = id;
-            RunwayIndex = runwayIndex;
+            RunwayId = runwayIndex;
             CreationMoments = creationMoments;
             CreationIntervals = creationIntervals;
         }
 
         public IAircraftId Id { get; }
-        public int RunwayIndex { get; }
+        public int RunwayId { get; }
         public ILandingAircraftCreationMoments CreationMoments { get; }
         public ILandingAircraftCreationIntervals CreationIntervals { get; }
     }

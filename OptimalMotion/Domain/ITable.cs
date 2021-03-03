@@ -8,7 +8,7 @@ namespace OptimalMoving.Domain
 {
     public interface ITable
     {
-        void AddRow(ITableRowCreationData row);
+        void AddRow(ITableRowCreationData rowCreationData);
         void RemoveRow(int id);
         void UpdateRow(int id, ITableRow newRow);
         void Reset();

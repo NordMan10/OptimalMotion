@@ -8,7 +8,7 @@ namespace OptimalMoving.Domain
 {
     public interface ISpecPlatform : ISerialAccessZone
     {
-        int Id { get; }
+        //int Id { get; }
 
         Tuple<int, int> GetProcessingAndSafeMergeDelay(IInterval aircraftInterval, int safeMergeValueParam);
     }

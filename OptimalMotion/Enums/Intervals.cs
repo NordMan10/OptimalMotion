@@ -11,13 +11,16 @@ namespace OptimalMoving.Enums
         Ordinary,
         ParkingPreliminaryStartMotion,
         ParkingSpecPlatformMotion,
-        AircraftProcessingWaiting,
+        ProcessingWaiting,
         SafeMergeWaiting,
         Processing,
         SpecPlatformPreliminaryStartMotion,
         PreliminaryStartWaiting,
         ExecutiveStartMotion,
         TakeOff,
-        Landing
+        Landing,
+        MaxProcessingWaiting,
+        MaxPreliminaryStartWaiting,
+        MaxSafeMerge
     }
 }

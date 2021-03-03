@@ -37,7 +37,7 @@ namespace OptimalMoving.Domain
         {
             var id = idGenerator.GetUniqueAircraftId();
 
-            var probablyPlannedMoments = new List<int> {creationTime + 360, creationTime + 420};
+            var probablyPlannedMoments = new List<int> {creationTime + 900, creationTime + 1000};
             var creationMoments = new TakingOffAircraftCreationMoments(creationTime, 
                 probablyPlannedMoments[random.Next(0, probablyPlannedMoments.Count)]);
 
@@ -46,18 +46,17 @@ namespace OptimalMoving.Domain
             var processingIsNeededVariants = new List<bool> {false, true};
             var processingIsNeeded = processingIsNeededVariants[random.Next(0, processingIsNeededVariants.Count)];
 
-            return new TakingOffAircraftCreationData(id, creationMoments, creationIntervals, runway, specPlatform, maxProcessingWaitingTime,
-                maxPreliminaryStartWaitingTime, safeMergeValue, processingIsNeeded);
+            return new TakingOffAircraftCreationData(id, creationMoments, creationIntervals, runway, specPlatform, processingIsNeeded);
         }
 
         private ITakingOffAircraftCreationIntervals GetTakingOffAircraftCreationIntervals()
         {
-            var parkingPSMotions = new List<int> { 180, 210, 240 };
-            var parkingSpecPlatformMotions = new List<int> { 30, 90, 70 };
-            var processing = new List<int> { 30, 40, 50 };
-            var specPlatformPSMotions = new List<int> { 30, 90, 70 };
-            var executiveStartMotions = new List<int> { 20, 30, 40 };
-            var takeOff = new List<int> { 60, 80, 90 };
+            var parkingPSMotions = new List<int> { 180 };
+            var parkingSpecPlatformMotions = new List<int> { 30 };
+            var processing = new List<int> { 30 };
+            var specPlatformPSMotions = new List<int> { 30 };
+            var executiveStartMotions = new List<int> { 20 };
+            var takeOff = new List<int> { 60 };
 
             return new TakingOffAircraftCreationIntervals(
                 parkingPSMotions[random.Next(0, parkingPSMotions.Count)],
@@ -65,7 +64,8 @@ namespace OptimalMoving.Domain
                 processing[random.Next(0, processing.Count)],
                 specPlatformPSMotions[random.Next(0, specPlatformPSMotions.Count)],
                 executiveStartMotions[random.Next(0, executiveStartMotions.Count)],
-                takeOff[random.Next(0, takeOff.Count)]);
+                takeOff[random.Next(0, takeOff.Count)], maxPreliminaryStartWaitingTime, 
+                maxProcessingWaitingTime, safeMergeValue);
         }
 
         private ILandingAircraftCreationData GetLandingAircraftCreationData(int creationTime, int runwayIndex)

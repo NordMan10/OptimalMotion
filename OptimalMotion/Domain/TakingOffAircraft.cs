@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Markup;
 using OptimalMoving.Enums;
 
 namespace OptimalMoving.Domain
@@ -13,32 +14,38 @@ namespace OptimalMoving.Domain
             Intervals = creationData.CreationIntervals.Intervals;
             runway = creationData.Runway;
             specPlatform = creationData.SpecPlatform;
-            maxProcessingWaitingTime = creationData.MaxProcessingWaitingTime;
-            maxPreliminaryStartWaitingTime = creationData.MaxPreliminaryStartWaitingTime;
-            safeMergeValue = creationData.SafeMergeValue;
             ProcessingIsNeeded = creationData.ProcessingIsNeeded;
         }
 
         private readonly IRunway runway;
         private readonly ISpecPlatform specPlatform;
-        private readonly int maxProcessingWaitingTime;
-        private readonly int maxPreliminaryStartWaitingTime;
-        private readonly int safeMergeValue;
 
 
         public IAircraftId Id { get; set; }
         public Dictionary<Moments, IMoment> Moments { get; }
         public Dictionary<Intervals, int> Intervals { get; }
         public bool ProcessingIsNeeded { get; }
-        
-        
 
+        public int GetRunwayId()
+        {
+            return runway.Id;
+        }
+
+        public int GetSpecPlatformId()
+        {
+            return specPlatform.Id;
+        }
+
+        /// <summary>
+        /// Возврат интервала занимания {ВПП} (уже с учетом задержек, чтобы записать в {ВПП}
+        /// </summary>
+        /// <returns></returns>
         public IInterval GetRunwayOccupationInterval()
         {
             // Вызываем метод (2), получаем момент прибытия на ИСПСТ;
             var startMoment = GetDelayedESArrivalMoment();
             // Вызываем метод (3), получаем момент взлета;
-            var endMoment = GetTakeOffMoment();
+            var endMoment = GetDelayedTakeOffMoment();
             // Формируем интервал и возвращаем его;
             return new Interval(startMoment, endMoment);
         }
@@ -54,27 +61,25 @@ namespace OptimalMoving.Domain
                 throw new Exception("Данный метод может быть вызван только при необходимости обработки");
 
             // Вызываем метод (1.2) и прибавляем время движения от стоянки до спец. площадки. Получили момент прибытия;
-            var startMoment = new Moment(GetProcessingAndSafeMergeDelay() +
-                                         Intervals[Enums.Intervals.ParkingSpecPlatformMotion]);
+            var startMoment = GetDelayedSpecPlatformArrivalMoment();
             // К полученному моменту прибавляем время обработки. Получили момент освобождения;
-            var endMoment = new Moment(startMoment.Value + Intervals[Enums.Intervals.Processing]);
+            var endMoment = GetDelayedSpecPlatformLeaveMoment();
 
             // Формируем интервал и возвращаем его;
             return new Interval(startMoment, endMoment);
         }
 
-        public bool IsPlannedMomentFeasible(IPlannedMomentFeasibilityController controller)
+        private IMoment GetDelayedSpecPlatformArrivalMoment()
         {
-            if (ProcessingIsNeeded)
-                return controller.IsFeasibleWithProcessing(Moments[Enums.Moments.Appearance],
-                    Intervals[Enums.Intervals.ParkingSpecPlatformMotion], maxProcessingWaitingTime,
-                    Intervals[Enums.Intervals.Processing],
-                    Intervals[Enums.Intervals.SpecPlatformPreliminaryStartMotion],
-                    maxPreliminaryStartWaitingTime, Moments[Enums.Moments.PlannedPreliminaryStartArrival]);
-                
-            return controller.IsFeasibleWithoutProcessing(Moments[Enums.Moments.Appearance],
-                    Intervals[Enums.Intervals.ParkingPreliminaryStartMotion], maxPreliminaryStartWaitingTime,
-                    Moments[Enums.Moments.PlannedPreliminaryStartArrival]);
+            return new Moment(Moments[Enums.Moments.Appearance].Value + GetProcessingAndSafeMergeDelay() +
+                              Intervals[Enums.Intervals.ParkingSpecPlatformMotion]);
+        }
+
+        private IMoment GetDelayedSpecPlatformLeaveMoment()
+        {
+            var leaveMoment = new Moment(GetDelayedSpecPlatformArrivalMoment().Value + Intervals[Enums.Intervals.Processing]);
+            Moments[Enums.Moments.SpecPlatformLeave] = leaveMoment;
+            return Moments[Enums.Moments.SpecPlatformLeave];
         }
 
         /// <summary>
@@ -87,15 +92,23 @@ namespace OptimalMoving.Domain
             // Если обработка не нужна
             if (!ProcessingIsNeeded)
             {
+                var test = GetPreliminaryStartDelay();
                 // Вызываем метод (1.1), прибавляем момент появления
-                sumDelay = GetPreliminaryStartDelay() + Moments[Enums.Moments.Appearance].Value;
+                sumDelay = Moments[Enums.Moments.Appearance].Value + test;
+
+                Moments[Enums.Moments.EngineStart] = new Moment(sumDelay);
                 // Создаем момент и возвращаем
-                return new Moment(sumDelay);
+                return Moments[Enums.Moments.EngineStart];
             }
+            var test1 = GetProcessingAndSafeMergeDelay();
+
             // Если обработка нужна => вызываем метод (1.2), прибавляем момент появления
-            sumDelay = GetProcessingAndSafeMergeDelay() + Moments[Enums.Moments.Appearance].Value;
+            sumDelay = Moments[Enums.Moments.Appearance].Value + test1;
+
+            Moments[Enums.Moments.EngineStart] = new Moment(sumDelay);
+
             // Создаем момент и возвращаем
-            return new Moment(sumDelay);
+            return Moments[Enums.Moments.EngineStart];
         }
 
         /// <summary>
@@ -119,12 +132,12 @@ namespace OptimalMoving.Domain
             var aircraftInterval = new Interval(GetSpecPlatformArrivalMoment(),
                 GetSpecPlatformLeaveMoment());
             var processingAndSafeMergeDelay =
-                specPlatform.GetProcessingAndSafeMergeDelay(aircraftInterval, safeMergeValue);
+                specPlatform.GetProcessingAndSafeMergeDelay(aircraftInterval, Intervals[Enums.Intervals.MaxSafeMerge]);
 
-            Intervals[Enums.Intervals.AircraftProcessingWaiting] = processingAndSafeMergeDelay.Item1;
+            Intervals[Enums.Intervals.ProcessingWaiting] = processingAndSafeMergeDelay.Item1;
             Intervals[Enums.Intervals.SafeMergeWaiting] = processingAndSafeMergeDelay.Item2;
 
-            var sumOfDelays = Intervals[Enums.Intervals.AircraftProcessingWaiting] +
+            var sumOfDelays = Intervals[Enums.Intervals.ProcessingWaiting] +
                               Intervals[Enums.Intervals.SafeMergeWaiting];
 
             return sumOfDelays;
@@ -151,7 +164,7 @@ namespace OptimalMoving.Domain
         }
 
         /// <summary>
-        /// Расчет момента выхода на ПРСТ: (2.1, 3.1)
+        /// Расчет момента выхода на ПРСТ (с учетом задержки): (2.1, 3.1)
         /// </summary>
         /// <returns></returns>
         private IMoment GetDelayedPSArrivalMoment()
@@ -160,20 +173,33 @@ namespace OptimalMoving.Domain
             // Если обработка не нужна
             if (!ProcessingIsNeeded)
             {
+                var test = GetPreliminaryStartDelay();
+
                 // Вызываем метод (1.1), прибавляем время движения от стоянки до ПРСТ. Возвращаем результат;
-                sumDelay = GetPreliminaryStartDelay() + Intervals[Enums.Intervals.ParkingPreliminaryStartMotion];
+                sumDelay = Moments[Enums.Moments.Appearance].Value + test + 
+                           Intervals[Enums.Intervals.ParkingPreliminaryStartMotion];
+
+                // Сохраняем момент прибытия на ПРСТ с учетом задержек
+                Moments[Enums.Moments.PreliminaryStartArrival] = new Moment(sumDelay);
                 // Создаем момент и возвращаем
-                return new Moment(sumDelay);
+                return Moments[Enums.Moments.PreliminaryStartArrival];
             }
 
             // Если обработка нужна
-            // вызываем метод (1.2), прибавляем время движения от стоянки до спец площадки,
-            // прибавляем время обработки и время движения от спец площадки до ПРСТ
-            sumDelay = GetProcessingAndSafeMergeDelay() + Intervals[Enums.Intervals.ParkingSpecPlatformMotion] +
+            // Вызываем метод (1.2), прибавляем к моменту появления результат метод (1.2),
+            // прибавляем время движения от стоянки до спец площадки,
+            // время обработки и время движения от спец площадки до ПРСТ
+            var test1 = GetProcessingAndSafeMergeDelay();
+
+            sumDelay = Moments[Enums.Moments.Appearance].Value + test1 +
+                       Intervals[Enums.Intervals.ParkingSpecPlatformMotion] +
                        Intervals[Enums.Intervals.Processing] +
                        Intervals[Enums.Intervals.SpecPlatformPreliminaryStartMotion];
+
+            // Сохраняем момент прибытия на ПРСТ с учетом задержек
+            Moments[Enums.Moments.PreliminaryStartArrival] = new Moment(sumDelay);
             // Создаем момент и возвращаем
-            return new Moment(sumDelay);
+            return Moments[Enums.Moments.PreliminaryStartArrival];
         }
 
         
@@ -184,8 +210,17 @@ namespace OptimalMoving.Domain
         /// <returns></returns>
         private IMoment GetExecutiveStartArrivalMoment()
         {
-            // Возвращаем сумму = время движения от стоянки до ПРСТ + время руления на ИСПСТ;
-            return new Moment(Intervals[Enums.Intervals.ParkingPreliminaryStartMotion] +
+            // Если обработка нужна
+            if (ProcessingIsNeeded)
+                // // Возвращаем сумму = момент появления + время движения от стоянки до Спец площадки +
+                // время обработки + время движения от Спец площадки до ПРСТ + время руления на ИСПСТ;
+                return new Moment(GetSpecPlatformArrivalMoment().Value + Intervals[Enums.Intervals.Processing] + 
+                                  Intervals[Enums.Intervals.SpecPlatformPreliminaryStartMotion] +
+                                  Intervals[Enums.Intervals.ExecutiveStartMotion]);
+
+            // Если обработка не нужна
+            // Возвращаем сумму = момент появления + время движения от стоянки до ПРСТ + время руления на ИСПСТ;
+            return new Moment(Moments[Enums.Moments.Appearance].Value + Intervals[Enums.Intervals.ParkingPreliminaryStartMotion] +
                    Intervals[Enums.Intervals.ExecutiveStartMotion]);
         }
 
@@ -206,8 +241,7 @@ namespace OptimalMoving.Domain
         /// <returns></returns>
         private IMoment GetSpecPlatformArrivalMoment()
         {
-            // Возвращаем время движения от стоянки до Спец площадки;
-            return new Moment(Intervals[Enums.Intervals.ParkingSpecPlatformMotion]);
+            return new Moment(Moments[Enums.Moments.Appearance].Value + Intervals[Enums.Intervals.ParkingSpecPlatformMotion]);
         }
 
         /// <summary>

@@ -18,13 +18,7 @@ namespace OptimalMoving.Domain
         public int Value
         {
             get => value;
-            set
-            {
-                if (value >= 0)
-                    this.value = value;
-                else
-                    throw new ArgumentException();
-            }
+            set => this.value = value;
         }
 
         public int CompareTo(IMoment otherMoment)

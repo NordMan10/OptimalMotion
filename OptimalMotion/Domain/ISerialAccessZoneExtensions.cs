@@ -18,7 +18,7 @@ namespace OptimalMoving.Domain
             // Локально получаем список ключей словаря из полей класса;
             var occupationIntervalsKeys = zone.OccupationIntervals.Keys.ToList();
             // Добавляем в список начальный момент полученного интервала;
-            occupationIntervalsKeys.Add(currentInterval.StartMoment);
+            //occupationIntervalsKeys.Add(currentInterval.StartMoment);
 
             // Сортируем список по возрастанию;
             // Проследи, чтобы было реализовано сравнение моментов

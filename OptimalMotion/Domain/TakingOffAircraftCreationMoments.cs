@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using OptimalMoving.Enums;
 
 namespace OptimalMoving.Domain
@@ -14,6 +10,8 @@ namespace OptimalMoving.Domain
             Moments = new Dictionary<Moments, IMoment>
             {
                 {Enums.Moments.Appearance, new Moment(appearance)},
+                {Enums.Moments.SpecPlatformLeave, new Moment(0)},
+                {Enums.Moments.EngineStart, new Moment(0)},
                 {Enums.Moments.PlannedPreliminaryStartArrival, new Moment(plannedPreliminaryStartArrival)},
                 {Enums.Moments.Departure, new Moment(0)},
                 {Enums.Moments.PreliminaryStartArrival, new Moment(0)},

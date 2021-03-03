@@ -16,6 +16,10 @@ namespace OptimalMoving.Domain
         private readonly DataGridView graphicBase;
         private readonly BindingList<ITableRow> data;
 
+        /// <summary>
+        /// Добавление строки: (ИНТЕРФЕЙС) (И.1)
+        /// </summary>
+        /// <param name="rowCreationData"></param>
         public void AddRow(ITableRowCreationData rowCreationData)
         {
             // Принимаем данные, необходимые для создания строки;
@@ -28,6 +32,10 @@ namespace OptimalMoving.Domain
             data.Add(tableRow);
         }
 
+        /// <summary>
+        /// Удаление строки: (ИНТЕРФЕЙС) (И.2)
+        /// </summary>
+        /// <param name="id"></param>
         public void RemoveRow(int id)
         {
             // Принимаем Id {Строки таблицы};
@@ -40,6 +48,11 @@ namespace OptimalMoving.Domain
             data.RemoveAt(rowIndex);
         }
 
+        /// <summary>
+        /// Изменение значения строки: (ИНТЕРФЕЙС) (И.4)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newRow"></param>
         public void UpdateRow(int id, ITableRow newRow)
         {
             // Принимаем Id {Строки таблицы};
@@ -58,11 +71,19 @@ namespace OptimalMoving.Domain
             data.Insert(rowIndex, updatedRow);
         }
 
+        /// <summary>
+        /// Очищает таблицу, удаляя все сохраненные значения
+        /// </summary>
         public void Reset()
         {
             data.Clear();
         }
 
+        /// <summary>
+        /// Создает {Строку таблицы}: (1)
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private ITableRow GetTableRow(ITableRowCreationData data)
         {
             // Получаем все данные, кроме Id строки;
@@ -72,13 +93,17 @@ namespace OptimalMoving.Domain
             var rowId = this.data.Count + 1;
 
             // Создаем { Строку таблицы};
-            var tableRow = new TableRow(rowId, creationData.AircraftId, 
-                creationData.EngineStartMoment, creationData.IsPlannedMomentFeasible);
+            var tableRow = new TableRow(rowId, creationData);
 
             // Возвращаем;
             return tableRow;
         }
 
+        /// <summary>
+        /// Получить индекс строки по Id строки: (2)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private int GetTableRowIndexById(int id)
         {
             // Получаем Id {Строки таблицы};

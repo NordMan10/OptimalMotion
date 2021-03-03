@@ -8,15 +8,22 @@ namespace OptimalMoving.Domain
         public LandingAircraft(ILandingAircraftCreationData creationData)
         {
             Id = creationData.Id;
-            runwayIndex = creationData.RunwayIndex;
+            runwayId = creationData.RunwayId;
             Moments = creationData.CreationMoments.Moments;
             Intervals = creationData.CreationIntervals.Intervals;
         }
 
+        private int runwayId;
+
         public IAircraftId Id { get; set; }
-        private int runwayIndex;
         public Dictionary<Moments, IMoment> Moments { get; }
         public Dictionary<Intervals, int> Intervals { get; }
+
+        public int GetRunwayId()
+        {
+            return runwayId;
+        }
+
         public IInterval GetRunwayOccupationInterval()
         {
             var endMoment = new Moment(Moments[Enums.Moments.Landing].Value + Intervals[Enums.Intervals.Landing]);

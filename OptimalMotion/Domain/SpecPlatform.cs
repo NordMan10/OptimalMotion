@@ -11,6 +11,7 @@ namespace OptimalMoving.Domain
         public SpecPlatform(int id)
         {
             Id = id;
+            OccupationIntervals = new Dictionary<IMoment, IMoment>();
         }
 
         public int Id { get; }

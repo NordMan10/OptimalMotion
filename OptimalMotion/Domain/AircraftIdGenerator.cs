@@ -30,6 +30,7 @@ namespace OptimalMoving.Domain
             return instance;
         }
 
+        // Выделяем Id еще и для садящихся
         public IAircraftId GetUniqueAircraftId()
         {
             return new AircraftId(id++);

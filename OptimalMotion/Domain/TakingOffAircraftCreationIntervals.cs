@@ -11,18 +11,24 @@ namespace OptimalMoving.Domain
     {
         public TakingOffAircraftCreationIntervals(int parkingPreliminaryStartMotion, int parkingSpecPlatformMotion,
             int aircraftProcessing, int specPlatformPreliminaryStartMotion,
-            int executiveStartMotion, int takeOff)
+            int executiveStartMotion, int takeOff, int maxPreliminaryStartWaiting, int maxProcessingWaiting,
+            int maxSafeMerge)
         {
-            Intervals = new Dictionary<Intervals, int>();
-            Intervals.Add(Enums.Intervals.ParkingPreliminaryStartMotion, parkingPreliminaryStartMotion);
-            Intervals.Add(Enums.Intervals.ParkingSpecPlatformMotion, parkingSpecPlatformMotion);
-            Intervals.Add(Enums.Intervals.AircraftProcessingWaiting, 0);
-            Intervals.Add(Enums.Intervals.SafeMergeWaiting, 0);
-            Intervals.Add(Enums.Intervals.Processing, aircraftProcessing);
-            Intervals.Add(Enums.Intervals.SpecPlatformPreliminaryStartMotion, specPlatformPreliminaryStartMotion);
-            Intervals.Add(Enums.Intervals.PreliminaryStartWaiting, 0);
-            Intervals.Add(Enums.Intervals.ExecutiveStartMotion, executiveStartMotion);
-            Intervals.Add(Enums.Intervals.TakeOff, takeOff);
+            Intervals = new Dictionary<Intervals, int>
+            {
+                {Enums.Intervals.ParkingPreliminaryStartMotion, parkingPreliminaryStartMotion},
+                {Enums.Intervals.ParkingSpecPlatformMotion, parkingSpecPlatformMotion},
+                {Enums.Intervals.ProcessingWaiting, 0},
+                {Enums.Intervals.SafeMergeWaiting, 0},
+                {Enums.Intervals.Processing, aircraftProcessing},
+                {Enums.Intervals.SpecPlatformPreliminaryStartMotion, specPlatformPreliminaryStartMotion},
+                {Enums.Intervals.PreliminaryStartWaiting, 0},
+                {Enums.Intervals.ExecutiveStartMotion, executiveStartMotion},
+                {Enums.Intervals.TakeOff, takeOff},
+                {Enums.Intervals.MaxPreliminaryStartWaiting, maxPreliminaryStartWaiting},
+                {Enums.Intervals.MaxProcessingWaiting, maxProcessingWaiting},
+                {Enums.Intervals.MaxSafeMerge, maxSafeMerge}
+            };
         }
 
         public Dictionary<Intervals, int> Intervals { get; }
