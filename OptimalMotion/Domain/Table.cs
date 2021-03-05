@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace OptimalMoving.Domain
@@ -8,6 +11,7 @@ namespace OptimalMoving.Domain
         public Table(DataGridView graphicBase)
         {
             this.graphicBase = graphicBase;
+            this.graphicBase.DataBindingComplete += GraphicBaseOnDataBindingComplete;
             data = new BindingList<ITableRow>();
 
             this.graphicBase.DataSource = data;
@@ -15,6 +19,21 @@ namespace OptimalMoving.Domain
 
         private readonly DataGridView graphicBase;
         private readonly BindingList<ITableRow> data;
+
+        private void GraphicBaseOnDataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (var property in typeof(TableRow).GetProperties())
+            {
+                var displayNameAttribute = property.GetCustomAttribute(typeof(DisplayNameAttribute));
+                if (displayNameAttribute != null)
+                {
+                    var propDisplayName = (displayNameAttribute as DisplayNameAttribute).DisplayName;
+                    graphicBase.Columns[property.Name].HeaderText = propDisplayName;
+                }
+
+                graphicBase.Columns[property.Name].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+        }
 
         /// <summary>
         /// Добавление строки: (ИНТЕРФЕЙС) (И.1)

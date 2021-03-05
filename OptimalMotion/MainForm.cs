@@ -45,11 +45,26 @@ namespace OptimalMoving
         {
             tableDataGridView.Dock = DockStyle.Fill;
 
-            var data = new BindingList<TableRow>();
-            tableDataGridView.DataSource = data;
-            tableDataGridView.DefaultCellStyle.Font = new Font("Arial", 14F, GraphicsUnit.Pixel);
+            tableDataGridView.Font = new Font("Roboto", 14f, FontStyle.Bold, GraphicsUnit.Pixel);
+            tableDataGridView.DefaultCellStyle.Font = new Font("Roboto", 14F, GraphicsUnit.Pixel);
 
             return new Table(tableDataGridView);
+        }
+
+        private void TableDataGridViewOnCellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            for (var i = 0; i < tableDataGridView.Columns.Count - 1; i++)
+            {
+                tableDataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+        }
+
+        private void TableDataGridView_DataSourceChanged(object sender, EventArgs e)
+        {
+            for (var i = 0; i < tableDataGridView.Columns.Count - 1; i++)
+            {
+                tableDataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
         }
 
         private TableLayoutPanel GetMainLayout()

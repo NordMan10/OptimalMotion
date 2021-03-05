@@ -1,5 +1,7 @@
 ﻿
 
+using System.ComponentModel;
+
 namespace OptimalMoving.Domain
 {
     public class TableRow : ITableRow
@@ -20,17 +22,40 @@ namespace OptimalMoving.Domain
             IsPlannedMomentFeasible = creationData.IsPlannedMomentFeasible;
         }
 
+        [DisplayName("Id")]
         public int Id { get; }
+
+        [DisplayName("Id ВС")]
         public int AircraftId { get; }
+        
+        [DisplayName("Т появ.")]
         public string AppearanceMoment { get; }
+
+        [DisplayName("Т плщ/покид")]
         public string SpecPlatformLeaveMoment { get; }
+
+        [DisplayName("Т приб/прст")]
         public string PreliminaryStartArrivalMoment { get; }
+
+        [DisplayName("Т план/прст")]
         public string PlannedMoment { get; }
+
+        [DisplayName("Т отпр")]
         public string EngineStartMoment { get; }
+
+        [DisplayName("Т ож/об")]
         public string MinProcessingWaiting { get; }
+
+        [DisplayName("Т ож/об/без")]
         public string SafeMergeWaiting { get; }
+
+        [DisplayName("Т ож/прст")]
         public string MinPSWaiting { get; }
+
+        [DisplayName("Нужна ли обработка?")]
         public bool NeedProcessing { get; }
+
+        [DisplayName("Плановый момент выполним?")]
         public bool IsPlannedMomentFeasible { get; }
     }
 }
