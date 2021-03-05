@@ -24,7 +24,7 @@ namespace OptimalMoving
             mainLayout = GetMainLayout();
             Controls.Add(mainLayout);
 
-            
+            WindowState = FormWindowState.Maximized;
 
             model = new Model(1, 1, table, clock);
         }
@@ -44,9 +44,9 @@ namespace OptimalMoving
         private ITable GetTable()
         {
             tableDataGridView.Dock = DockStyle.Fill;
-
             tableDataGridView.Font = new Font("Roboto", 14f, FontStyle.Bold, GraphicsUnit.Pixel);
             tableDataGridView.DefaultCellStyle.Font = new Font("Roboto", 14F, GraphicsUnit.Pixel);
+            tableDataGridView.ColumnHeadersHeight = 30;
 
             return new Table(tableDataGridView);
         }
@@ -79,6 +79,7 @@ namespace OptimalMoving
             mainLayout.RowStyles.Add(new RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             mainLayout.RowStyles.Add(new RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
             mainLayout.Dock = DockStyle.Fill;
+            mainLayout.TabIndex = 0;
 
             return mainLayout;
         }
@@ -108,6 +109,9 @@ namespace OptimalMoving
             clock.TextAlign = ContentAlignment.MiddleCenter;
             clock.Dock = DockStyle.Fill;
             clock.Text = string.Format("{0:00}:{1:00}:{2:00}", 0, 0, 0);
+            clock.Font = new Font("Roboto", 20f, FontStyle.Bold, GraphicsUnit.Pixel);
+
+            //Clock.
         }
 
         private void InitButtons()
@@ -122,6 +126,11 @@ namespace OptimalMoving
             StartButton = new Button();
             StartButton.Text = "Start";
             StartButton.Click += StartButtonOnClick;
+            StartButton.Font = new Font("Roboto", 16f, FontStyle.Bold, GraphicsUnit.Pixel);
+            StartButton.Size = new Size(90, 40);
+            StartButton.BackColor = Color.LimeGreen;
+            StartButton.FlatStyle = FlatStyle.Flat;
+
             Controls.Add(StartButton);
         }
 
@@ -130,6 +139,11 @@ namespace OptimalMoving
             StopButton = new Button();
             StopButton.Text = "Stop";
             StopButton.Click += StopButtonOnClick;
+            StopButton.Font = new Font("Roboto", 16f, FontStyle.Bold, GraphicsUnit.Pixel);
+            StopButton.Size = new Size(90, 40);
+            StopButton.BackColor = Color.Red;
+            StopButton.FlatStyle = FlatStyle.Flat;
+            StartButton.TabIndex = 1;
             Controls.Add(StopButton);
         }
 
@@ -138,6 +152,10 @@ namespace OptimalMoving
             PauseButton = new Button();
             PauseButton.Text = "Pause";
             PauseButton.Click += PauseButtonOnClick;
+            PauseButton.Font = new Font("Roboto", 16f, FontStyle.Bold, GraphicsUnit.Pixel);
+            PauseButton.Size = new Size(90, 40);
+            PauseButton.FlatStyle = FlatStyle.Flat;
+            //PauseButton.BackColor = Color.Yellow;
             Controls.Add(PauseButton);
         }
 
@@ -148,6 +166,8 @@ namespace OptimalMoving
 
         private void StopButtonOnClick(object sender, EventArgs e)
         {
+            model.ResetClock();
+            model.ResetIdGenerator();
             model.ChangeStage(ModelStages.Preparing);
         }
 

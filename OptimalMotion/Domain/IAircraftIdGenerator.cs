@@ -10,5 +10,6 @@ namespace OptimalMoving.Domain
     {
         IAircraftId GetUniqueAircraftId();
         IAircraftIdGenerator GetInstance(int initIdValue);
+        void Reset();
     }
 }

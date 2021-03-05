@@ -34,16 +34,26 @@ namespace OptimalMoving.Domain
         private ModelStages stage = ModelStages.Started;
         private Label clock;
 
-            private void InitTimers()
+        private void InitTimers()
         {
-            takingOffAircraftTimer.Interval = 5000;
-            takingOffAircraftTimer.Tick += TakingOffAircraftTimerOnTick;
+        takingOffAircraftTimer.Interval = 5000;
+        takingOffAircraftTimer.Tick += TakingOffAircraftTimerOnTick;
 
-            landingAircraftTimer.Interval = 10000;
-            landingAircraftTimer.Tick += LandingAircraftTimerOnTick;
+        landingAircraftTimer.Interval = 10000;
+        landingAircraftTimer.Tick += LandingAircraftTimerOnTick;
 
-            clockTimer.Interval = 50;
-            clockTimer.Tick += ClockTimerOnTick;
+        clockTimer.Interval = 50;
+        clockTimer.Tick += ClockTimerOnTick;
+        }
+
+        public void ResetClock()
+        {
+            clock.Text = $"{0:00}:{0:00}:{0:00}";
+        }
+
+        public void ResetIdGenerator()
+        {
+            aircraftIdGenerator.Reset();
         }
 
         private void ClockTimerOnTick(object sender, EventArgs e)

@@ -43,13 +43,13 @@ namespace OptimalMoving.Domain
         [DisplayName("Т отпр")]
         public string EngineStartMoment { get; }
 
-        [DisplayName("Т ож/об")]
+        [DisplayName("t ож/об")]
         public string MinProcessingWaiting { get; }
 
-        [DisplayName("Т ож/об/без")]
+        [DisplayName("t ож/об/без")]
         public string SafeMergeWaiting { get; }
 
-        [DisplayName("Т ож/прст")]
+        [DisplayName("t ож/прст")]
         public string MinPSWaiting { get; }
 
         [DisplayName("Нужна ли обработка?")]
